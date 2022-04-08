@@ -1,0 +1,40 @@
+import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export AppWindow := Window {
+    preferred-width: 500px;
+    preferred-height: 100px;
+    title: "Network Info";    
+    property<string> tips: "..."; // copied!
+    property <string> net_ip: "127.0.0.1" ;
+    callback copy-me(string, string);
+    VerticalBox { 
+        // alignment: center;
+        Text {
+            color: #3b99e6;
+            text: "\{tips}";
+        }        
+        HorizontalBox {
+            Text {
+                text: "Net IP:";
+            }
+            Button {
+                text: "\{net_ip}";
+                clicked => { 
+                    copy_me("net ip", "\{net_ip}");
+                }
+            }
+        }
+        HorizontalBox {
+            Text {
+                text: "Proxy Addr:";
+            }
+            Button {
+                text: "export https_proxy=http://\{net_ip}:7890";
+                clicked => { 
+                    copy_me("proxy addr", "export https_proxy=http://\{net_ip}:7890");
+                }
+            }  
+        }        
+
+     }
+}
